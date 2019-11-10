@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import Nav from "../components/Nav";
 import Search from "../components/Search";
 import SearchResult from "../components/SearchResult";
-import { Box, Text } from "grommet";
+import { Box, Text, Heading } from "grommet";
 import axios from "axios";
 
 type GithubSearchResult = {
@@ -38,10 +37,8 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav />
-
       <Box fill pad={{horizontal: 'medium'}}>
-        <h1 className="title">Welcome to Next.js!</h1>
+        <Heading level={1} className="title">Github Repo Search</Heading>
         <Search onSearch={searchRepos} />
         <Box>
           {searchResults && searchResults.items.length ? (
