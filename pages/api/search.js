@@ -1,7 +1,6 @@
 import axios from "axios";
 
-export default (req, res) => {
-  console.log(req.query)
+export default async (req, res) => {
   const formattedQuery = req.query.q.replace(" ", "+");
 
   const params = {
@@ -15,16 +14,16 @@ export default (req, res) => {
     params,
     url: `${process.env.github_api_url}/search/repositories`
   };
-  axios(options)
-    .then(resp => {
-      console.log("response");
-      return resp;
-    })
-    .catch(err => {
-      console.log(err.response.data.errors);
-      return err;
-    })
-    .finally(() => {
-      console.log("the end");
-    });
+
+  try {
+    const response = await axios(options);
+    res.send(response.data)
+  } catch (err) {
+    console.error(err.response.data.errors);
+    res.status(500).send(err.response.data)
+  } finally {
+    console.log('the end')
+  }
 };
+
+

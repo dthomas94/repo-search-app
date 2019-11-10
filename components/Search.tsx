@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { Box, Button, TextInput, Select } from "grommet";
 
 type SearchProps = {
@@ -12,13 +12,40 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     sortBy: "",
     order: "desc"
   });
+  const inputEl = createRef<HTMLDivElement>();
+
+
+  useEffect(() => {
+    const node = inputEl.current;
+
+    const handleKeyPress = async (e) => {
+      if (e.which === 13) {
+        onSearch(searchValue, filter)
+      }
+    };
+
+    if (node) {
+      node.focus();
+      node.addEventListener('keypress', handleKeyPress);
+    }
+
+    return () => {
+      if (node) {
+        node.removeEventListener('keypress', handleKeyPress);
+      }
+    };
+
+    // eslint-disable-next-line
+  }, [inputEl]);
 
   return (
-    <Box>
+    <Box direction="row">
       <TextInput
         placeholder="Search Github"
         value={searchValue}
         onChange={e => setSearchValue(e.target.value)}
+        // @ts-ignore
+        ref={inputEl}
       />
 
       <Select
