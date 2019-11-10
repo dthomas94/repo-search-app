@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, TextInput, Select } from "grommet";
 
 type SearchProps = {
-  onSearch: (searchValue: string, filter: string) => void;
+  onSearch: (searchValue: string, filter: object) => void;
 };
 
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
@@ -29,9 +29,6 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
         ]}
         value={filter}
         labelKey="name"
-        valueKey={option => {
-          return `${option.sortBy} ${option.order}`;
-        }}
         onChange={({ option }) => {
           setFilter(option);
         }}

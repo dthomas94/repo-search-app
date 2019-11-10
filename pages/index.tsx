@@ -5,16 +5,21 @@ import Search from "../components/Search";
 import { Box } from "grommet";
 import axios from "axios";
 
+
+
 const Home = () => {
-  const onSearch = (searchValue, filter) => {
-    const [sortBy, , order] = filter;
-    axios.get(`${process.env.api}/search?q=${searchValue}`, {
-      data: {
+
+  const searchRepos = (searchValue, filter) => {
+    const { sortBy, order } = filter;
+    axios.get(`api/search`, {
+      params: {
+        q: searchValue,
         sortBy,
         order
       }
     });
   };
+
 
   return (
     <Box>
@@ -27,7 +32,7 @@ const Home = () => {
 
       <Box>
         <h1 className="title">Welcome to Next.js!</h1>
-        <Search onSearch={onSearch} />
+        <Search onSearch={searchRepos} />
       </Box>
     </Box>
   );
