@@ -21,9 +21,7 @@ export default async (req, res) => {
   } catch (err) {
     console.error(err.response.data.errors);
     res.status(500).send(err.response.data)
-  } finally {
-    console.log('the end')
-  }
+  };
 };
 
 

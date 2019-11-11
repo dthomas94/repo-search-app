@@ -38,6 +38,12 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     // eslint-disable-next-line
   }, [inputEl]);
 
+  useEffect(() => {
+    onSearch(searchValue, filter);
+
+    // eslint-disable-next-line
+  }, [filter]);
+
   return (
     <Box direction="row">
       <TextInput
